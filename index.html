@@ -1,15 +1,29 @@
 <html>
   <head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Yukati's ArchLinux Repo</title>
+    <style>
+      body {
+        background-color: #FADADD;
+      }
+    </style>
   </head>
   <body>
     <h1>Yukati's ArchLinux Repo</h1>
     <hr>
     <h2>使用此源</h2>
-      <p>导入密钥：本源的GPG公钥是：36DEC584EEFF525810EEBFA06A551B9306A56E52<p>
-      <p>打开/etc/pacman.conf，添加以下内容：</p>
-      <p>[yukati]</p>
-      <p>Server = http://yukati.yuqios.top/$arch</p>
-      <p><b>本站目前只提供aarch64的包!你可以自行贡献!</b><p>
+      <h3>注意事项</h3>
+      <p>本站目前唯一维护人只提供aarch64架构的包，其他包请自行贡献！</p>
+      <h3>导入密钥</h3>
+      <p>本源的GPG公钥是：</p>
+      <textarea rows="1" cols="40" readonly style="resize: none;">
+36DEC584EEFF525810EEBFA06A551B9306A56E52
+      </textarea>
+      <h3>如何添加源</h3>
+      <p>打开/etc/pacman.conf，在里面添加如下内容：</p>
+      <textarea rows="4" cols="40" readonly style="resize: none;">
+[yukati]
+Server = http://yukati.yuqios.top/$arch
+      </textarea>
   </body>
 </html>
