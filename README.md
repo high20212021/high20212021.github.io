@@ -1,2 +1,2 @@
 # Yukati's ArchLinux Repo
-[Repo](http://yukati.yuqios.top)
+[Repo](https://high20212021.github.io/)
