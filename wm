@@ -1,0 +1,73 @@
+#!/bin/bash
+
+check_and_create_directories() {
+    if [ ! -d "/world" ]; then
+        mkdir /world
+    fi
+    if [ ! -d "/world/bin" ]; then
+        mkdir /world/bin
+    fi
+    if [ ! -d "/world/downloaded" ]; then
+        mkdir /world/downloaded
+    fi
+	if [ ! -f "/world/mirror" ]; then
+		touch /world/mirror
+	fi
+}
+
+get_package() {
+    pkgname=$1
+	pkgmirror=$(cat /world/mirror)
+    wget -P $pkgmirror/mirror/$pkgname.d
+}
+
+mount_package() {
+    pkgname=$1
+    if [ ! -d "/world/bin/$pkgname" ]; then
+        mkdir /world/bin/$pkgname
+    fi
+    mount -o loop /world/downloaded/$pkgname.d /world/bin/$pkgname
+}
+
+umount_package() {
+    pkgname=$1
+    umount /world/bin/$pkgname
+    rm -rf /world/bin/$pkgname
+}
+
+run_app() {
+    pkgname=$1
+    if [ -f "/world/bin/$pkgname/runapp.sh" ]; then
+        cd /world/bin/$pkgname
+        ./runapp.sh
+    else
+        echo "Error: runapp.sh not found in /world/bin/$pkgname/"
+    fi
+}
+
+main() {
+    action=$1
+    pkgname=$2
+
+    check_and_create_directories
+
+    case $action in
+        "get")
+            get_package $pkgname
+            ;;
+        "mount")
+            mount_package $pkgname
+            ;;
+        "umount")
+            umount_package $pkgname
+            ;;
+        "exec")
+            run_app $pkgname
+            ;;
+        *)
+            echo "Usage: wm [get/mount/umount/exec] <pkgname>"
+            ;;
+    esac
+}
+
+main $@
