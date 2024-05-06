@@ -18,7 +18,7 @@ check_and_create_directories() {
 get_package() {
     pkgname=$1
 	pkgmirror=$(cat /world/mirror)
-    wget -P $pkgmirror/mirror/$pkgname.d
+    wget -P $pkgmirror/mirror/ $pkgname.d
 }
 
 mount_package() {
@@ -48,6 +48,12 @@ run_app() {
 main() {
     action=$1
     pkgname=$2
+    
+    if [ $# -ne 2 ]; then
+        echo "AuroraStudios WorldManager 1.0.1 For Linux"
+        echo "Usage: wm [get/mount/umount/exec] <pkgname>"
+        exit 1
+    fi
 
     check_and_create_directories
 
@@ -65,6 +71,7 @@ main() {
             run_app $pkgname
             ;;
         *)
+            echo "AuroraStudios WorldManager 1.0.1 For Linux"
             echo "Usage: wm [get/mount/umount/exec] <pkgname>"
             ;;
     esac
