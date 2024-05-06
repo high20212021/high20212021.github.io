@@ -45,12 +45,16 @@ run_app() {
     fi
 }
 
+cleancache() {
+    rm -rf /world/downloaded
+    mkdir /world/downloaded
+}
+
 main() {
     action=$1
     pkgname=$2
     
     if [ $# -ne 2 ]; then
-        echo "AuroraStudios WorldManager 1.0.1 For Linux"
         echo "Usage: wm [get/mount/umount/exec] <pkgname>"
         exit 1
     fi
@@ -70,9 +74,11 @@ main() {
         "exec")
             run_app $pkgname
             ;;
+        "clean")
+            clearcache
+            ;;
         *)
-            echo "AuroraStudios WorldManager 1.0.1 For Linux"
-            echo "Usage: wm [get/mount/umount/exec] <pkgname>"
+            echo "Usage: wm [get/mount/umount/exec/clean] <pkgname>"
             ;;
     esac
 }
